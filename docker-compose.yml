@@ -23,12 +23,10 @@ services:
         networks:
             - microservices-network
         links:
-            - eureka-server:eureka-server
-            
+            - eureka-server:eureka-server   
         depends_on:
             - eureka-server
-            
-            books-service:
+    books-service2:
         container_name: BookService
         build:
             context: book-service/
@@ -40,12 +38,10 @@ services:
         networks:
             - microservices-network
         links:
-            - eureka-server:eureka-server
-            
+            - eureka-server:eureka-server       
         depends_on:
             - eureka-server
-            
-            books-service:
+    books-service3:
         container_name: BookService
         build:
             context: book-service/
@@ -58,10 +54,8 @@ services:
             - microservices-network
         links:
             - eureka-server:eureka-server
-            
         depends_on:
             - eureka-server
-            
     ZuulServer:
         container_name: ZuulServer
         build:
