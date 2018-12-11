@@ -1,0 +1,48 @@
+version: '2.2'
+services:
+    eureka-server:
+        container_name: eureka-server
+        build:
+            context: discovery-service/
+        image: eureka-server:latest
+        expose:
+            - 8761
+        ports:
+            - 8761:8761
+        networks:
+            - microservices-network
+    books-service:
+        container_name: BookService
+        build:
+            context: book-service/
+        image: bookservice:latest
+        expose:
+            - 2230
+        ports:
+            - 2230:2230
+        networks:
+            - microservices-network
+        links:
+            - eureka-server:eureka-server
+            - mysql:mysql
+        depends_on:
+            - eureka-server
+            - mysql
+    ZuulServer:
+        container_name: ZuulServer
+        build:
+            context: gateway-service/
+        image: zuulserver:latest
+        expose:
+            - 8765
+        ports:
+            - 8765:8765
+        networks:
+            - microservices-network
+        links:
+            - eureka-server:eureka-server
+        depends_on:
+            - eureka-server
+networks:
+    microservices-network:
+        driver: bridge

@@ -1,0 +1,52 @@
+server:
+  port: 8765
+info:
+  component: Edge Server
+  
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+zuul:
+  prefix: /api
+  routes:
+    account: 
+      path: /account/**
+      serviceId: account-service
+    customer: 
+      path: /customer/**
+      serviceId: customer-service
+    book:
+      path: /book/**
+      serviceId: book-service
+    genre:
+      path: /genre/**
+      serviceId: genre-service
+    cart:
+      path: /cart/**
+      serviceId: book-service
+    cart_d:
+      path: /cart_d/**
+      serviceId: book-service
+    buy:
+      path: /buy/**
+      serviceId: book-service
+      
+ribbon:
+  eureka:
+    enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${DISCOVERY_URL:http://eureka-server:8761}/eureka/
+    registerWithEureka: true
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.web: DEBUG
