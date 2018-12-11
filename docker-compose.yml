@@ -27,7 +27,7 @@ services:
         depends_on:
             - eureka-server
     books-service2:
-        container_name: BookService
+        container_name: BookService2
         build:
             context: book-service/
         image: bookservice:latest
@@ -42,7 +42,7 @@ services:
         depends_on:
             - eureka-server
     books-service3:
-        container_name: BookService
+        container_name: BookService3
         build:
             context: book-service/
         image: bookservice:latest
