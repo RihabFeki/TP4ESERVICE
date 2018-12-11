@@ -24,10 +24,44 @@ services:
             - microservices-network
         links:
             - eureka-server:eureka-server
-            - mysql:mysql
+            
         depends_on:
             - eureka-server
-            - mysql
+            
+            books-service:
+        container_name: BookService
+        build:
+            context: book-service/
+        image: bookservice:latest
+        expose:
+            - 2230
+        ports:
+            - 2231:2230
+        networks:
+            - microservices-network
+        links:
+            - eureka-server:eureka-server
+            
+        depends_on:
+            - eureka-server
+            
+            books-service:
+        container_name: BookService
+        build:
+            context: book-service/
+        image: bookservice:latest
+        expose:
+            - 2230
+        ports:
+            - 2232:2230
+        networks:
+            - microservices-network
+        links:
+            - eureka-server:eureka-server
+            
+        depends_on:
+            - eureka-server
+            
     ZuulServer:
         container_name: ZuulServer
         build:
